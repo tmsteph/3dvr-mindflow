@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mindflow by 3dvr.tech</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background: radial-gradient(ellipse at center, #1e3c72, #2a5298);
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      padding: 2rem;
+      text-align: center;
+    }
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+    input, button, textarea {
+      padding: 0.5rem;
+      border: none;
+      border-radius: 0.5rem;
+      font-size: 1rem;
+      margin: 0.5rem 0;
+      width: 100%;
+      max-width: 300px;
+    }
+    button {
+      background: #00ffc8;
+      color: #000;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .timer {
+      font-size: 3rem;
+      margin: 1rem 0;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🧘‍♂️ Mindflow</h1>
+  <p>What’s your intention today?</p>
+  <input id="intention" placeholder="e.g., Write 3dvr newsletter" />
+
+  <button onclick="startTimer()">Start 25-Min Focus</button>
+  <div class="timer" id="timer">25:00</div>
+
+  <textarea id="journal" rows="5" placeholder="Post-focus reflections..."></textarea>
+
+  <script>
+    let time = 25 * 60;
+    let interval;
+
+    function startTimer() {
+      const btn = document.querySelector("button");
+      if (interval) return;
+      btn.innerText = "In Flow...";
+      interval = setInterval(() => {
+        if (time <= 0) {
+          clearInterval(interval);
+          document.getElementById("timer").innerText = "Done 🎉";
+          btn.innerText = "Start Again";
+          interval = null;
+          time = 25 * 60;
+          return;
+        }
+        time--;
+        const min = String(Math.floor(time / 60)).padStart(2, "0");
+        const sec = String(time % 60).padStart(2, "0");
+        document.getElementById("timer").innerText = `${min}:${sec}`;
+      }, 1000);
+    }
+  </script>
+
+</body>
+</html>
